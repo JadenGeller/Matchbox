@@ -4,6 +4,7 @@ Matchbox is designed to allow for super simple parsing of input. For example, Ma
 
 Here's what it looks like to parse command line arguments with Matchbox:
 ```swift
+// The user input we're going to parse
 let input = TextStream("./myprogram filename -s 350 450")
 
 // Skip the program name
@@ -12,6 +13,7 @@ input ->> sequence(
     many1(letter())
 )
 
+// Parse the filename
 var filename: String!
 guard input ->> filename else { fatalError("Expected filename") }
 
@@ -19,10 +21,12 @@ guard input ->> filename else { fatalError("Expected filename") }
 var width: Int! = 0
 var height: Int! = 0
 
+// Parse the flags
 var flag: Flag!
 while input ->> flag {
     switch flag.identifier {
     case "s":
+        // Parse the width and height after the size flag
         guard input ->> width ->> height else { fatalError("Expected arguments after flag s") }
     default:
         fatalError("Unexpected flag \"\(flag.identifier)\"")
