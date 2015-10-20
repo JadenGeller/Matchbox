@@ -43,5 +43,6 @@ struct Flag: MatchInitializable {
     }
 }
 ```
+You can build your own `MatchInitializable` (set the value of a variable by parsing it) and `MarchVerifiable` (assert that the value of the variable is correct) types by building `Parsley` parsers. Pretty neat, huh!
 
-Pretty neat, huh!
+Note that Matchbox's default `TextStream` ignores whitespace, but this can be changed by adding `ignoresWhitespace: false` to the initializer. Futher, note that `TextStream` is actually a subclass of `InputStream<Token>`, which can be used to parse arbitrary types of `SequenceType`s.
